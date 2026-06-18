@@ -16,15 +16,16 @@ export default function SearchBar() {
       return;
     }
 
-    router.push(`/?search=${encodeURIComponent(q)}#results`);
+    router.push(
+  `/?search=${encodeURIComponent(q)}#results`
+);
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 sm:px-0">
+    <div className="mx-auto w-full max-w-2xl">
       <div
         className="
-          flex flex-col sm:flex-row sm:items-center
-          gap-3 sm:gap-0
+          flex items-center
           rounded-2xl
           border border-slate-200
           bg-white
@@ -36,53 +37,65 @@ export default function SearchBar() {
           focus-within:ring-orange-100
         "
       >
-        {/* INPUT ROW */}
-        <div className="flex items-center flex-1 px-4 py-3 sm:py-0">
-          <Search size={18} className="text-slate-400 shrink-0" />
+        {/* Search Icon */}
+        <Search
+          size={20}
+          className="ml-4 text-slate-400"
+        />
 
-          <input
-            type="text"
-            placeholder="Search meals..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleSearch();
-            }}
+        {/* Input */}
+        <input
+          type="text"
+          placeholder="Search meals..."
+          value={search}
+          onChange={(e) =>
+            setSearch(e.target.value)
+          }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
+          className="
+            flex-1
+            bg-transparent
+            px-4
+            py-4
+            text-sm
+            text-slate-700
+            outline-none
+          "
+        />
+
+        {/* Clear Button */}
+        {search && (
+          <button
+            onClick={() => setSearch("")}
             className="
-              w-full
-              bg-transparent
-              px-3
-              text-sm
-              text-slate-700
-              outline-none
+              p-2
+              text-slate-400
+              transition
+              hover:text-red-500
             "
-          />
+          >
+            <X size={18} />
+          </button>
+        )}
 
-          {search && (
-            <button
-              onClick={() => setSearch("")}
-              className="text-slate-400 hover:text-red-500"
-            >
-              <X size={16} />
-            </button>
-          )}
-        </div>
-
-        {/* BUTTON */}
+        {/* Search Button */}
         <button
           onClick={handleSearch}
           className="
-            w-full sm:w-auto
+            m-2
             rounded-xl
             bg-orange-500
             px-5
-            py-3
+            py-2.5
             text-sm
             font-medium
             text-white
             transition
             hover:bg-orange-600
-            sm:m-2
           "
         >
           Search
