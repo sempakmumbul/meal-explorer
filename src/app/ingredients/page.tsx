@@ -1,67 +1,74 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getIngredients } from "@/lib/api";
 import IngredientsList from "@/components/IngredientsList";
+import { getIngredients } from "@/lib/api";
+
+import Link from "next/link";
+import { FaHome } from "react-icons/fa";
+import { FiChevronRight } from "react-icons/fi";
 
 export default async function IngredientsPage() {
   const ingredients = await getIngredients();
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <>
       <Navbar />
 
-      {/* IMPORTANT: offset fixed navbar */}
-      <main className="flex-1 pt-16">
-        
-        {/* HEADER (more minimal + modern) */}
-        <section className="border-b bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-8">
-            
-            <div className="flex flex-col gap-1">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-orange-500">
-                Database
+      <main className="min-h-screen bg-slate-50 pt-16">
+
+        <div className="mx-auto max-w-7xl px-6 py-10">
+
+          {/* HEADER */}
+          <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+
+            {/* LEFT */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">
+                Food Database
               </p>
 
-              <h1 className="text-xl font-semibold text-slate-900 md:text-2xl">
-                Ingredients Explorer
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+                Ingredients
               </h1>
 
-              <p className="max-w-2xl text-sm text-slate-500">
-                Search, browse, and explore ingredients from TheMealDB dataset.
+              <p className="mt-3 max-w-2xl text-sm text-slate-500">
+                Search, browse, and explore ingredients.
               </p>
+
+              <div className="mt-5 inline-flex items-center rounded-full bg-orange-50 px-4 py-2 text-xs font-medium text-orange-600">
+                {ingredients.length} ingredients available
+              </div>
             </div>
+
+            {/* BREADCRUMB */}
+            <nav className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+
+              <Link
+                href="/"
+                className="flex items-center gap-1 transition hover:text-orange-500"
+              >
+                <FaHome size={12} />
+                Home
+              </Link>
+
+              <FiChevronRight size={14} />
+
+              <span className="font-medium text-slate-900">
+                Ingredients
+              </span>
+
+            </nav>
 
           </div>
-        </section>
 
-        {/* CONTENT WRAPPER */}
-        <section className="mx-auto max-w-7xl px-6 py-8">
-
-          {/* TOP BAR (clean meta info) */}
-          <div className="mb-6 flex items-center justify-between">
-            
-            <div className="flex flex-col gap-1">
-              <h2 className="text-sm font-semibold text-slate-900">
-                Ingredients List
-              </h2>
-              <p className="text-xs text-slate-500">
-                Use search or alphabet navigation to filter data
-              </p>
-            </div>
-
-            <div className="hidden rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-500 md:block">
-              {ingredients.length} items
-            </div>
-
-          </div>
-
-          {/* LIST */}
+          {/* INGREDIENTS */}
           <IngredientsList ingredients={ingredients} />
 
-        </section>
+        </div>
+
       </main>
 
       <Footer />
-    </div>
+    </>
   );
 }

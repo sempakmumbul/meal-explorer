@@ -19,50 +19,71 @@ export default async function CategoryDetailPage({
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-white pt-16">
-
+      <main className="min-h-screen bg-slate-50 pt-16">
         <div className="mx-auto max-w-7xl px-6 py-10">
 
-          {/* BREADCRUMB (CONSISTENT SYSTEM) */}
-          <nav className="mb-8 flex items-center gap-2 text-xs text-slate-500">
+          {/* HEADER */}
+          <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
 
-            <Link href="/" className="flex items-center gap-1 hover:text-orange-500">
-              <FaHome size={12} />
-              Home
-            </Link>
+            {/* LEFT */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">
+                Category
+              </p>
 
-            <FiChevronRight />
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+                {category}
+              </h1>
 
-            <Link href="/categories" className="hover:text-orange-500">
-              Categories
-            </Link>
+              <p className="mt-3 text-sm text-slate-500">
+                Explore all meals available in the{" "}
+                <span className="font-medium text-slate-700">
+                  {category}
+                </span>{" "}
+                category.
+              </p>
 
-            <FiChevronRight />
+              <div className="mt-5 inline-flex items-center rounded-full bg-orange-50 px-4 py-2 text-xs font-medium text-orange-600">
+                {meals.length} meals found
+              </div>
+            </div>
 
-            <span className="text-slate-900 font-medium">
-              {category}
-            </span>
+            {/* BREADCRUMB */}
+            <nav className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
 
-          </nav>
+              <Link
+                href="/"
+                className="flex items-center gap-1 transition hover:text-orange-500"
+              >
+                <FaHome size={12} />
+                Home
+              </Link>
 
-          {/* TITLE */}
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-            {category}
-          </h1>
+              <FiChevronRight size={14} />
 
-          <p className="mt-2 text-sm text-slate-500">
-            Meals in the {category} category
-          </p>
+              <Link
+                href="/categories"
+                className="transition hover:text-orange-500"
+              >
+                Foods
+              </Link>
 
-          {/* META */}
-          <div className="mt-6 text-xs text-slate-400">
-            {meals.length} meals found
+              <FiChevronRight size={14} />
+
+              <span className="font-medium text-slate-900">
+                {category}
+              </span>
+
+            </nav>
           </div>
 
           {/* GRID */}
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {meals.map((meal: any) => (
-              <MealCard key={meal.idMeal} meal={meal} />
+              <MealCard
+                key={meal.idMeal}
+                meal={meal}
+              />
             ))}
           </div>
 
